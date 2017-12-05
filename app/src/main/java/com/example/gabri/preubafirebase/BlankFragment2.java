@@ -61,12 +61,12 @@ public class BlankFragment2 extends Fragment {
         String[] cosasLista = {"COSA 1 LISTA 2", "COSA 2 LISTA 1"};
         ListView lista = (ListView) view.findViewById(R.id.Lista2);
 
-        ArrayAdapter<String> adtadorLista = new ArrayAdapter<String>(
+        ArrayAdapter<String> adaptadorlista = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 cosasLista
         );
-        lista.setAdapter(adtadorLista);
+        lista.setAdapter(adaptadorlista);
         return view;
     }
 

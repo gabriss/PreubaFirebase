@@ -26,8 +26,6 @@ public class AdaptadorBares extends ArrayAdapter<Bares> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.celda, null);
         }
-
-
         TextView lblTitulo = (TextView) convertView.findViewById(R.id.enunciado);
         lblTitulo.setText(bar.getNombre());
         TextView lblSubtitulo = (TextView) convertView.findViewById(R.id.texto);

@@ -7,20 +7,16 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link BlankFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link BlankFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class BlankFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,16 +62,22 @@ public class BlankFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
 
         ListView lista = (ListView) view.findViewById(R.id.tvresultado);
-        String[] cosasLista = {"COSA 1", "COSA 2"};
-        ArrayAdapter<String> adtadorLista = new ArrayAdapter<String>(
+
+        ArrayList<Bares> arrayOfUsers = new ArrayList<Bares>();
+// Create the adapter to convert the array to views
+        AdaptadorBares adaptadorlista = new AdaptadorBares(getActivity(), arrayOfUsers);
+// Attach the adapter to a ListView
+// ListView listView = (ListView) findViewById(R.id.lvItems);
+// listView.setAdapter(adapter);
+
+        lista.setAdapter(adaptadorlista);
+        return view;
+    }
+/*ArrayAdapter<String> adtadorLista = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 cosasLista
-        );
-        lista.setAdapter(adtadorLista);
-        return view;
-    }
-
+        );*/
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
