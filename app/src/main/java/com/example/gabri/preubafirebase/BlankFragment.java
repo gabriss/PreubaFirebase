@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class BlankFragment extends Fragment {
     private DatabaseReference miBbdd;
     //ARRAY
     private ArrayList<Bares> bar = new ArrayList<>();
+    private ArrayAdapter<Bares> adaptadorlista;
 
     ListView lista;
 
@@ -72,6 +74,33 @@ public class BlankFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
         lista = (ListView) view.findViewById(R.id.tvresultado);
 
+        //FirebaseDatabase database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://mapa1-185120.firebaseio.com/Bares");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+
+        adaptadorlista = new ArrayAdapter<Bares>(getActivity(), android.R.layout.simple_list_item_1, bar);
+        lista.setAdapter(adaptadorlista);
+
+
+
+        database.getReference("Bares").child("").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                bar.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    Bares aviso2 = snapshot.getValue(Bares.class);
+                    bar.add(aviso2);
+
+                }
+                adaptadorlista.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         return view;
     }
@@ -115,9 +144,9 @@ public class BlankFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    protected void onPostExecute(Boolean result) {
+/*    protected void onPostExecute(Boolean result) {
         AdaptadorBares adaptadorlista = new AdaptadorBares(getActivity(), bar);
         lista.setAdapter(adaptadorlista);
 
-    }
+    }*/
 }

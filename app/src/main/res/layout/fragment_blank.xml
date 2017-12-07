@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:divider="@color/colorAccent"
-        android:background="@color/colorPrimary"
         android:dividerHeight="5dp"
         />
 
