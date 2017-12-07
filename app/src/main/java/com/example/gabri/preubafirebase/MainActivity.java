@@ -18,7 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,BlankFragment.OnFragmentInteractionListener,BlankFragment2.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, BlankFragment.OnFragmentInteractionListener, BlankFragment2.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity
 
         onNavigationItemSelected(navigationView.getMenu().getItem(0));
         navigationView.setCheckedItem(0);
+
+
     }
 
     @Override

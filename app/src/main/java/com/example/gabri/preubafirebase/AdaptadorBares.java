@@ -22,15 +22,19 @@ public class AdaptadorBares extends ArrayAdapter<Bares> {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
+        // Lead actual.
         Bares bar = getItem(position);
+        // ¿Existe el view actual?
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.celda, null);
         }
+        // Referencias UI.
         TextView lblTitulo = (TextView) convertView.findViewById(R.id.enunciado);
-        lblTitulo.setText(bar.getNombre());
         TextView lblSubtitulo = (TextView) convertView.findViewById(R.id.texto);
-        lblSubtitulo.setText(bar.getDireccion());
         ImageView fotico = (ImageView) convertView.findViewById(R.id.foto);
+        // Setup.
+        lblTitulo.setText(bar.getNombre());
+        lblSubtitulo.setText(bar.getDireccion());
         new DownloadImageTask(fotico).execute(bar.foto);
 
 
@@ -60,5 +64,6 @@ public class AdaptadorBares extends ArrayAdapter<Bares> {
             bmImage.setImageBitmap(result);
         }
     }
+
 }
 

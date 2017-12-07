@@ -11,7 +11,12 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -26,8 +31,14 @@ public class BlankFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    //FIREBASE
+    private FirebaseDatabase baseDatos;
+    private DatabaseReference miBbdd;
+    //ARRAY
+    private ArrayList<Bares> bar = new ArrayList<>();
 
-    FirebaseDatabase baseDatos;
+    ListView lista;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -52,7 +63,6 @@ public class BlankFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        baseDatos = FirebaseDatabase.getInstance();
     }
 
     @Override
@@ -60,24 +70,12 @@ public class BlankFragment extends Fragment {
                              Bundle savedInstanceState) {
         // return inflater.inflate(R.layout.fragment_blank, container, false);
         View view = inflater.inflate(R.layout.fragment_blank, container, false);
+        lista = (ListView) view.findViewById(R.id.tvresultado);
 
-        ListView lista = (ListView) view.findViewById(R.id.tvresultado);
 
-        ArrayList<Bares> arrayOfUsers = new ArrayList<Bares>();
-// Create the adapter to convert the array to views
-        AdaptadorBares adaptadorlista = new AdaptadorBares(getActivity(), arrayOfUsers);
-// Attach the adapter to a ListView
-// ListView listView = (ListView) findViewById(R.id.lvItems);
-// listView.setAdapter(adapter);
-
-        lista.setAdapter(adaptadorlista);
         return view;
     }
-/*ArrayAdapter<String> adtadorLista = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                cosasLista
-        );*/
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -115,5 +113,11 @@ public class BlankFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    protected void onPostExecute(Boolean result) {
+        AdaptadorBares adaptadorlista = new AdaptadorBares(getActivity(), bar);
+        lista.setAdapter(adaptadorlista);
+
     }
 }
