@@ -76,14 +76,30 @@ public class BlankFragment extends Fragment {
 
         //FirebaseDatabase database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://mapa1-185120.firebaseio.com/Bares");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        miBbdd = FirebaseDatabase.getInstance().getReference();
 
 
         adaptadorlista = new ArrayAdapter<Bares>(getActivity(), android.R.layout.simple_list_item_1, bar);
         lista.setAdapter(adaptadorlista);
 
+        miBbdd.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
+                    Bares aviso2 = snapshot.getValue(Bares.class);
+                    bar.add(aviso2);
 
-        database.getReference("Bares").child("").addValueEventListener(new ValueEventListener() {
+                }
+                adaptadorlista.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        /*database.getReference("Bares").child("").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 bar.clear();
@@ -100,7 +116,7 @@ public class BlankFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
         return view;
     }
